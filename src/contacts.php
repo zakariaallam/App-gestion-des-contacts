@@ -1,0 +1,41 @@
+<?php
+
+class Contacts {
+    private $name;
+    private $telephone;
+    private $email;
+    private $adress;
+    private $id_user;
+    private $con;
+
+    public function __construct($con){
+        $this->con = $con;
+    }
+
+    public function property($name , $telephone,$email,$adress,$id_user){
+         $this->name = $name;
+         $this->telephone = $telephone;
+         $this->email = $email;
+         $this->adress = $adress;
+         $this->id_user = $id_user;
+    }
+
+    public function AjouteContact(){
+          $sql = "INSERT INTO contacts (name,telephone,email,adress,id_user) VALUES (:name,:telephone,:email,:adress,:id_user)";
+          $stmt = $this->con->prepare($sql);
+          $stmt->bindParam('name',$this->name);
+          $stmt->bindParam('telephone',$this->telephone);
+          $stmt->bindParam('email',$this->email);
+          $stmt->bindParam('adress',$this->adress);
+          $stmt->bindParam('id_user',$this->id_user);
+          $stmt->execute();
+          return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function AffichierContact(){
+        $sql = "SELECT * FROM contacts";
+        $result = $this->con->query($sql);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+}
