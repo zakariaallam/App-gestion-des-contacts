@@ -12,7 +12,7 @@
         unset($_SESSION['erreur']);
       }
       ?>
-      <form method="post" action="../pages/login.php" id="login">
+      <form method="post" action="../controle/login.php" id="login">
         <div class="modal-body">
 
           <!-- Email -->

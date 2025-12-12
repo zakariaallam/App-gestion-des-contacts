@@ -1,11 +1,12 @@
 const rgx_name = /^[A-z0-9]{3,20}$/ ;
 const rgx_pass = /^.{6,20}$/
-const rgx_email = /^[A-z0-9]{3,6}\@[A-z]{3,6}\.[a-z]{2,3}$/
+const rgx_email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const rgx_phone = /^\+?\d{6,15}$/
 
 // ------------ login validation ------------
 
 const login = document.forms['login'];
-
+if(login){
 login.addEventListener('submit',(e)=>{
     e.preventDefault();
     const nameError = document.getElementById('nameError')
@@ -29,11 +30,13 @@ login.addEventListener('submit',(e)=>{
       login.submit()
     }
 })
+}
 
 // ------------------- SinUp validation ----------------
 
 const Sinup = document.forms['Sinup'];
 
+if(Sinup){
 Sinup.addEventListener('submit',(e)=>{
     e.preventDefault();
     const SnameError = document.getElementById('SnameError')
@@ -73,3 +76,47 @@ Sinup.addEventListener('submit',(e)=>{
       Sinup.submit()
     }
 })
+
+}
+
+// ------------------- Contact validation ----------------
+
+
+const contactFOrm = document.forms['contactFOrm'];
+if(contactFOrm){
+
+contactFOrm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const CnameError = document.getElementById('CnameError')
+    const CemailError = document.getElementById('CemailError')
+    const CphoneError = document.getElementById('CphoneError')
+    let validContact = true
+
+    if(!rgx_name.test(contactFOrm['C_name'].value)){
+          CnameError.textContent = 'Nom invalide'
+          validContact = false
+    }else{
+      CnameError.textContent = ''
+    }
+
+    if(!rgx_email.test(contactFOrm['C_email'].value)){
+          CemailError.textContent = 'Email invalide'
+          validContact = false
+    }else{
+      CemailError.textContent = ''
+    }
+
+    if(!rgx_phone.test(contactFOrm['C_phone'].value)){
+          CphoneError.textContent = 'Phone invalide'
+          validContact = false
+    }else{
+      CphoneError.textContent = ''
+    }
+  
+    
+
+    if(validContact){
+      contactFOrm.submit()
+    }
+})
+}

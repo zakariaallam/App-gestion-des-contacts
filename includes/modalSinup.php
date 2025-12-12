@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Inscription</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="../pages/inscription.php" id="Sinup">
+            <form method="post" action="../controle/inscription.php" id="Sinup">
                 <div class="modal-body">
 
                     <!-- Nom complet -->
