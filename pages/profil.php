@@ -1,5 +1,14 @@
 <?php
-session_start();?>
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/auto.php';
+
+if(!isset($_SESSION['user_id'])){
+    header('location: /../index.php');
+    exit();
+}
+$profil = $user->FindUserByID($_SESSION['user_id'])
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,12 +45,12 @@ session_start();?>
 
         <div class="mb-3">
             <label class="form-label fw-bold">Name :</label>
-            <div class="form-control"><?= $_SESSION['name'] ?></div>
+            <div class="form-control"><?= $profil['name'] ?></div>
         </div>
 
         <div class="mb-3">
             <label class="form-label fw-bold">date iscription</label>
-            <div class="form-control"><?= $_SESSION['result']['date_inscription'] ?></div>
+            <div class="form-control"><?= $profil['date_inscription'] ?></div>
         </div>
 
         <div class="mb-3">

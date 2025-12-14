@@ -38,4 +38,22 @@ class Contacts {
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function FindContactByID($id){
+        $sql = "SELECT * FROM contacts WHERE id = :id";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('id',$id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function ModifierContact($id){
+        $sql = "UPDATE contacts SET name = :name ,telephone = :phone, email = :email , adress = :adress WHERE id = :id";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('name',$this->name);
+        $stmt->bindParam('phone',$this->telephone);
+        $stmt->bindParam('email',$this->email);
+        $stmt->bindParam('adress',$this->adress);
+        $stmt->bindParam('id',$id);
+        $stmt->execute();
+    }
 }

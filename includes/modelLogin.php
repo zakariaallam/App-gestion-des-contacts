@@ -15,7 +15,7 @@
       <form method="post" action="../controle/login.php" id="login">
         <div class="modal-body">
 
-          <!-- Email -->
+          <!-- Name -->
           <div class="mb-3">
             <label for="name" class="form-label fw-bold">User Name :</label>
             <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name">
@@ -24,10 +24,16 @@
 
           <!-- Password -->
           <div class="mb-3">
-            <label for="password" class="form-label">Password :</label>
+            <label for="password" class="form-label fw-bold">Password :</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Password">
             <span id="passError" class="text-danger"></span>
           </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label fw-bold">Remember me :</label>
+            <input type="checkbox" name="remember"> 
+          </div>
+
         </div>
         <div class="modal-footer">
           <button  type="submit" name="login" class="btn btn-primary w-100">Login</button>
