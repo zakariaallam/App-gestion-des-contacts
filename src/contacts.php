@@ -56,4 +56,11 @@ class Contacts {
         $stmt->bindParam('id',$id);
         $stmt->execute();
     }
+
+    public function DeletContact($id){
+        $sql = "DELETE FROM contacts WHERE id = :id";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('id',$id);
+        $stmt->execute();
+    }
 }

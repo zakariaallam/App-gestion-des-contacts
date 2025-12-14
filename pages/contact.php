@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../config/config.php';
+<?php 
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/modalDelete.php';
 $btnSend = 'Ajoute';
 $name = "";
 $phone = "";
@@ -66,8 +68,11 @@ $adress = "";
                                         <input type="hidden" name="id" value="<?= $row['id'] ?>">
                                         <button class="btn btn-sm btn-warning modifierContact">Modifier</button>
                                     </form>
-                                    <!-- <a href="/pages/contact.php"class="btn btn-sm btn-warning modifierContact">Modifier</a> -->
-                                    <a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+                                    <form action="/controle/deleteContect.php" method="post" class="suprimierContact">
+                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                        <button class="btn btn-sm btn-danger " data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</button>
+                                    </form>
+                                    <!-- <a href="#" class="btn btn-sm btn-danger">Supprimer</a> -->
                                 </td>
                             </tr>
                             <?php endforeach?>
@@ -146,6 +151,7 @@ $adress = "";
     </div>
 </div>
 
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/validation.js"></script>
 </body>
