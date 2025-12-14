@@ -1,3 +1,10 @@
+<?php require_once __DIR__ . '/../config/config.php';
+$btnSend = 'Ajoute';
+$name = "";
+$phone = "";
+$email = "";
+$adress = "";
+?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -27,8 +34,11 @@
 
                 <div class="card-body">
 
+                    <?php
+                    $listContact = $contact->AffichierContact();
+                    ?>
                     <!-- Message si la liste est vide -->
-                    <div class="alert alert-info">
+                    <div class="alert alert-info <?php if($listContact) echo 'd-none' ?? ''?>">
                         Aucun contact enregistré.
                     </div>
 
@@ -45,8 +55,6 @@
                         </thead>
                         <tbody>
                             <?php
-                            require_once __DIR__ . '/../config/config.php';
-                            $listContact = $contact->AffichierContact();
                             foreach($listContact as $row):?>
                              <tr>
                                 <td><?= $row['name'] ?></td>
@@ -54,24 +62,16 @@
                                 <td><?= $row['email'] ?></td>
                                 <td><?= $row['adress'] ?></td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-warning">Modifier</a>
+                                    <form action="contact.php" method="get">
+                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                        <button class="btn btn-sm btn-warning modifierContact">Modifier</button>
+                                    </form>
+                                    <!-- <a href="/pages/contact.php"class="btn btn-sm btn-warning modifierContact">Modifier</a> -->
                                     <a href="#" class="btn btn-sm btn-danger">Supprimer</a>
                                 </td>
                             </tr>
                             <?php endforeach?>
-                            
-                            <!-- Exemple d'une ligne -->
-                            <!-- <tr>
-                                <td>Ahmed Test</td>
-                                <td>+212 600000000</td>
-                                <td>ahmed@example.com</td>
-                                <td>Rabat</td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-warning">Modifier</a>
-                                    <a href="#" class="btn btn-sm btn-danger">Supprimer</a>
-                                </td>
-                            </tr> -->
-                            <!-- Fin exemple -->
+            
                         </tbody>
                     </table>
 
@@ -80,6 +80,16 @@
 
         </div>
 
+        <?php
+        if(isset($_GET['id'])){
+            $btnSend = 'Modifier';
+            $result = $contact->FindContactByID($_GET['id']);
+            $name = $result['name'];
+            $phone = $result['telephone'];
+            $email = $result['email'];
+            $adress = $result['adress'];
+        }
+        ?>
         <!-- ====================== B. FORMULAIRE ====================== -->
         <div class="col-lg-5">
 
@@ -90,37 +100,41 @@
 
                 <div class="card-body">
 
-                    <form method="post" action="../controle//contact_Control.php" id="contactFOrm">
+                    <form method="post" action="../controle/contact_Control.php" id="contactFOrm">
+                        
+                        <!-- id -->
+                        <input type="hidden" name="id" value="<?= $_GET['id'] ?? ''?>">
 
                         <!-- Nom -->
                         <div class="mb-3">
                             <label class="form-label">Nom <span class="text-danger">*</span></label>
-                            <input name="C_name" type="text" class="form-control" placeholder="Nom complet">
+                            <input name="C_name" type="text" class="form-control" placeholder="Nom complet" value="<?= $name ?>">
                             <span id="CnameError" class="text-danger small"></span>
                         </div>
 
                         <!-- Téléphone -->
                         <div class="mb-3">
                             <label class="form-label">Téléphone</label>
-                            <input name="C_phone" type="text" class="form-control" placeholder="+212...">
+                            <input name="C_phone" type="text" class="form-control" placeholder="+212..." value="<?= $phone ?>">
                             <span id="CphoneError" class="text-danger small"></span>
                         </div>
 
                         <!-- Email -->
                         <div class="mb-3">
                             <label class="form-label">E-mail <span class="text-danger">*</span></label>
-                            <input name="C_email" type="email" class="form-control" placeholder="email@example.com">
+                            <input name="C_email" type="email" class="form-control" placeholder="email@example.com" value="<?= $email ?>">
                             <span id="CemailError" class="text-danger small"></span>
                         </div>
 
                         <!-- Adresse -->
                         <div class="mb-3">
                             <label class="form-label">Adresse</label>
-                            <textarea name="C_adress" class="form-control" rows="3" placeholder="Adresse complète"></textarea>
+                            <textarea name="C_adress" class="form-control" rows="3" placeholder="Adresse complète"><?= $adress ?></textarea>
                         </div>
 
                         <!-- Boutons -->
-                        <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                         <input type="hidden" name="btnSend" value="<?= $btnSend ?>">
+                        <button type="submit" id="btnAjoteContact" class="btn btn-success w-100" ><?= $btnSend ?></button>
 
                     </form>
 
@@ -132,6 +146,7 @@
     </div>
 </div>
 
+<script src="../assets/js/main.js"></script>
 <script src="../assets/js/validation.js"></script>
 </body>
 </html>

@@ -17,6 +17,13 @@ class Users {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function FindUserByID($id){
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindParam('id',$id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function Sinup($name,$password){
        $sql = "INSERT INTO users(name,password) VALUES (:name,:pass)";

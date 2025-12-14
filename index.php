@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php require_once 'config/config.php';?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +13,6 @@
 
     <?php
     include_once 'includes/header.php';
-    require_once 'config/config.php';
     include_once 'includes/modelLogin.php';
     include_once 'includes/modalSinup.php'
     ?>
