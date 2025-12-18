@@ -33,11 +33,10 @@ class Users {
        $stmt->execute();
     }
 
-    public function Login($name,$pass){
-            $sql = "SELECT * FROM users WHERE name = :username AND password = :pass";
+    public function Login($name){
+            $sql = "SELECT * FROM users WHERE name = :username ";
             $stmt = $this->con->prepare($sql);
             $stmt->bindParam('username',$name);
-            $stmt->bindParam('pass',$pass);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }

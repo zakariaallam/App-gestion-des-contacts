@@ -1,4 +1,9 @@
 <?php 
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header('location: /../index.php');
+    exit();
+}
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../includes/modalDelete.php';
 $btnSend = 'Ajoute';
@@ -37,7 +42,7 @@ $adress = "";
                 <div class="card-body">
 
                     <?php
-                    $listContact = $contact->AffichierContact();
+                    $listContact = $contact->AffichierContact($_SESSION['user_id']);
                     ?>
                     <!-- Message si la liste est vide -->
                     <div class="alert alert-info <?php if($listContact) echo 'd-none' ?? ''?>">

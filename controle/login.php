@@ -1,20 +1,18 @@
 <?php
+session_start();
 require_once '../config/config.php';
 
 $name = $_POST['name'];
 $password = $_POST['password'];
-$remember = isset($_post['remember']);
+$remember = isset($_POST['remember']);
 $result = $user->Login($name,$password);
-
-if($result){
-    session_regenerate_id(true);
+if($result && password_verify($password,$result['password'])){
     $_SESSION['user_id'] = $result['id'];
     $_SESSION['time'] = time();
-
     if($remember){
         $token = bin2hex(random_bytes(32));
         $hash = hash('sha256',$token);
-        $rememberMe->property($result['id'],$hash,'NEW() + INTERVAL 30 day');
+        $rememberMe->property($result['id'],$hash,'30 day');
         $rememberMe->SendTokenToDb();
 
         setcookie(

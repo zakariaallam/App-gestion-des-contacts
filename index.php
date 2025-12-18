@@ -1,4 +1,6 @@
-<?php require_once 'config/config.php';?>
+<?php
+require_once 'config/auto.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
