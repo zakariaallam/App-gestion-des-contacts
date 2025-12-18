@@ -1,4 +1,4 @@
+/vendor
 docker-compose.yml
 dockerfile
 composer.lock
-/vendor
