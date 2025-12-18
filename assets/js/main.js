@@ -26,6 +26,7 @@ suprimierContact.forEach((btn) => {
 });
 
 const deleteInput = document.getElementById("deleteInput");
+if(deleteInput){
 deleteInput.addEventListener("input", () => {
   if (deleteInput.value == "delete") {
     btnModalDelete.disabled = false;
@@ -37,11 +38,18 @@ deleteInput.addEventListener("input", () => {
      btnModalDelete.disabled = true;
   }
 });
-
+}
 
 const dark = document.getElementById('dark');
 const light = document.getElementById('light');
+const body = document.body
 
 dark.addEventListener('click',()=>{
-  
+    body.removeAttribute('data-bs-theme')
+    body.setAttribute('data-bs-theme','dark')
+})
+
+light.addEventListener('click',()=>{
+    body.removeAttribute('data-bs-theme')
+    body.setAttribute('data-bs-theme','light')
 })
