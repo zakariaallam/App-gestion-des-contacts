@@ -32,10 +32,12 @@ class Contacts {
           return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function AffichierContact(){
-        $sql = "SELECT * FROM contacts";
-        $result = $this->con->query($sql);
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+    public function AffichierContact($id){
+        $sql = "SELECT * FROM contacts WHERE id_user = :id";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindPAram(':id',$id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function FindContactByID($id){

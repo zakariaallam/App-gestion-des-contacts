@@ -37,3 +37,11 @@ deleteInput.addEventListener("input", () => {
      btnModalDelete.disabled = true;
   }
 });
+
+
+const dark = document.getElementById('dark');
+const light = document.getElementById('light');
+
+dark.addEventListener('click',()=>{
+  
+})

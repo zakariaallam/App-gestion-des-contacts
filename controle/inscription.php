@@ -11,6 +11,8 @@ if (preg_match($rgxName, $name) && strlen($password) > 5) {
     if ($resulta == null) {
         $hashPassword = password_hash($password,PASSWORD_DEFAULT);
         $res = $user->Sinup($name, $hashPassword);
+        header('location: /../pages/profil.php');
+        exit();
     }
 
     if ($resulta != null) {
